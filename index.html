@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>老後資金シミュレーター｜65歳以降の生活費・収支を計算</title>
+  <meta name="description" content="老後2000万円問題を自分の数字で確認。現在の年齢・貯蓄・年金予想額から65歳以降の生活費・収支を無料でシミュレーション。老後資金の不足額を計算します。">
+  <meta property="og:title" content="老後資金シミュレーター｜65歳以降の生活費・収支を計算">
+  <meta property="og:description" content="老後2000万円問題を自分の数字で確認。現在の年齢・貯蓄・年金予想額から65歳以降の生活費・収支を無料でシミュレーション。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://appadaycreator.github.io/retirement-fund-simulator/">
+  <meta property="og:image" content="https://appadaycreator.github.io/retirement-fund-simulator/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://appadaycreator.github.io/retirement-fund-simulator/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "老後資金シミュレーター",
+    "description": "65歳以降の生活費・収支を計算。老後2000万円問題を自分の数字で確認。",
+    "url": "https://appadaycreator.github.io/retirement-fund-simulator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"}
+  }
+  </script>
+  <!-- GTM Head -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TXQGZRF9');</script>
+  <!-- Clarity -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","s3t9vl8h3v");</script>
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427583028015858" crossorigin="anonymous"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Error Handler -->
+  <script>window.onerror=function(m,s,l,c,e){console.warn('Error:',m);return true;};window.addEventListener('unhandledrejection',function(e){console.warn('Rejection:',e.reason);});</script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: { 50:'#fffbeb',100:'#fef3c7',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e',900:'#78350f' },
+            brown: { 50:'#fdf8f6',100:'#f2e8e5',600:'#9b5e3c',700:'#7c4a2d',800:'#5d3a1a' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-amber-50 text-gray-800 min-h-screen">
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header class="bg-gradient-to-r from-yellow-700 to-amber-600 text-white shadow-lg">
+    <div class="max-w-3xl mx-auto px-4 py-6">
+      <div class="flex items-center gap-3">
+        <span class="text-4xl">🏦</span>
+        <div>
+          <h1 class="text-2xl font-bold">老後資金シミュレーター</h1>
+          <p class="text-amber-100 text-sm mt-1">65歳以降の生活費・収支を無料でシミュレーション</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <!-- AdSense -->
+    <div class="mb-6">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Quiz -->
+    <div id="quiz-section">
+      <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+        <p class="text-amber-700 font-semibold text-sm mb-2">老後2000万円問題を自分の数字で確認</p>
+        <h2 class="text-xl font-bold text-gray-800 mb-4">8つの質問に答えて老後資金を診断</h2>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+          <div id="progress-bar" class="bg-amber-500 h-2 rounded-full transition-all duration-500" style="width:0%"></div>
+        </div>
+        <p id="progress-text" class="text-xs text-gray-500 mb-6">質問 1 / 8</p>
+
+        <!-- Q1 -->
+        <div id="q1" class="question-block">
+          <h3 class="text-lg font-semibold mb-4">現在の年齢は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="1" data-v="30">30代</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="1" data-v="40">40代</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="1" data-v="50">50代</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="1" data-v="60">60代前半</button>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div id="q2" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">現在の貯蓄額（金融資産合計）は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="2" data-v="100">100万円未満</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="2" data-v="500">100〜500万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="2" data-v="1000">500〜1000万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="2" data-v="2000">1000〜2000万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition col-span-2" data-q="2" data-v="3000">2000万円以上</button>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div id="q3" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">現在の月の生活費は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="3" data-v="15">15万円未満</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="3" data-v="20">15〜20万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="3" data-v="25">20〜25万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="3" data-v="30">25〜30万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition col-span-2" data-q="3" data-v="35">30万円以上</button>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div id="q4" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">年金の予想受給額（月額）は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="4" data-v="8">8万円未満</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="4" data-v="12">8〜12万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="4" data-v="16">12〜16万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="4" data-v="20">16〜20万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition col-span-2" data-q="4" data-v="24">20万円以上</button>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div id="q5" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">退職予定年齢は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="5" data-v="60">60歳</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="5" data-v="63">63歳</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="5" data-v="65">65歳</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="5" data-v="70">70歳以降</button>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div id="q6" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">老後の住居は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="6" data-v="own">持ち家（ローン完済）</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="6" data-v="own-loan">持ち家（ローン残あり）</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="6" data-v="rent-low">賃貸（8万円未満）</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="6" data-v="rent-high">賃貸（8万円以上）</button>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div id="q7" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">子供への金銭的援助（教育費・結婚費用等）の予定は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="7" data-v="none">子供なし・援助なし</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="7" data-v="small">100万円未満</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="7" data-v="medium">100〜500万円</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="7" data-v="large">500万円以上</button>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div id="q8" class="question-block hidden">
+          <h3 class="text-lg font-semibold mb-4">老後の旅行・趣味の頻度・予算は？</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="8" data-v="none">ほぼなし</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="8" data-v="low">月1〜3万円程度</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="8" data-v="mid">月3〜5万円程度</button>
+            <button class="quiz-btn bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left hover:border-amber-500 hover:bg-amber-100 transition" data-q="8" data-v="high">月5万円以上</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="result-section" class="hidden">
+      <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+        <h2 class="text-2xl font-bold text-center mb-6 text-amber-700">診断結果</h2>
+        <div id="result-content"></div>
+      </div>
+
+      <!-- Affiliate -->
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
+        <h3 class="text-lg font-bold mb-4 text-amber-800">📚 老後の資産形成を学ぶ</h3>
+        <div class="space-y-3">
+          <a href="https://www.amazon.co.jp/s?k=%E8%80%81%E5%BE%8C%E8%B3%87%E9%87%91+%E8%B3%87%E7%94%A3%E7%AE%A1%E7%90%86&tag=appadaycrea0f-22" target="_blank" rel="noopener" class="block bg-white border border-amber-300 rounded-xl p-4 hover:shadow-md transition">
+            <p class="font-semibold text-amber-700">Amazon｜老後・資産管理の本を探す</p>
+            <p class="text-sm text-gray-600 mt-1">老後2000万円問題、資産形成、年金対策の書籍を多数掲載</p>
+          </a>
+          <a href="https://px.a8.net/svt/ejp?a8mat=4AVCO8+3ORU2Y+5JTC+5YRHE" target="_blank" rel="noopener" class="block bg-white border border-amber-300 rounded-xl p-4 hover:shadow-md transition">
+            <p class="font-semibold text-amber-700">ヨンデミー｜お金・資産管理の本を選書</p>
+            <p class="text-sm text-gray-600 mt-1">AIが最適な本を提案。お金の教養をしっかり身につけよう</p>
+          </a>
+          <img src="https://www11.a8.net/0.gif?a8mat=4AVCO8+3ORU2Y+5JTC+5YRHE" width="1" height="1" alt="">
+        </div>
+      </div>
+
+      <!-- AdSense -->
+      <div class="mb-6">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Cross Links -->
+      <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+        <h3 class="text-lg font-bold mb-4 text-gray-700">関連ツール</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <a href="https://appadaycreator.github.io/fire-calculator/" class="flex items-center gap-3 p-3 bg-amber-50 rounded-xl hover:bg-amber-100 transition">
+            <span class="text-2xl">🔥</span><div><p class="font-semibold">FIREシミュレーター</p><p class="text-sm text-gray-500">経済的自立・早期退職を目指す計算ツール</p></div>
+          </a>
+          <a href="https://appadaycreator.github.io/nisa-ideco-simulator/" class="flex items-center gap-3 p-3 bg-amber-50 rounded-xl hover:bg-amber-100 transition">
+            <span class="text-2xl">📈</span><div><p class="font-semibold">NISA・iDeCo シミュレーター</p><p class="text-sm text-gray-500">税優遇制度を活用した資産形成シミュレーション</p></div>
+          </a>
+          <a href="https://appadaycreator.github.io/insurance-check/" class="flex items-center gap-3 p-3 bg-amber-50 rounded-xl hover:bg-amber-100 transition">
+            <span class="text-2xl">🛡️</span><div><p class="font-semibold">保険見直しチェッカー</p><p class="text-sm text-gray-500">必要な保険か診断して保険料を最適化</p></div>
+          </a>
+        </div>
+      </div>
+
+      <button onclick="location.reload()" class="w-full bg-amber-600 text-white font-bold py-3 rounded-xl hover:bg-amber-700 transition">もう一度診断する</button>
+    </div>
+  </main>
+
+  <footer class="bg-amber-800 text-amber-100 text-center py-4 mt-8">
+    <p class="text-sm">&copy; 2026 老後資金シミュレーター | <a href="https://appadaycreator.github.io/" class="underline">AppaDayCreator</a></p>
+  </footer>
+
+  <script>
+    const answers = {};
+    const totalQ = 8;
+
+    document.querySelectorAll('.quiz-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const q = parseInt(this.dataset.q);
+        const v = this.dataset.v;
+        answers[q] = v;
+
+        // highlight
+        document.querySelectorAll(`[data-q="${q}"]`).forEach(b => b.classList.remove('border-amber-500','bg-amber-100'));
+        this.classList.add('border-amber-500','bg-amber-100');
+
+        setTimeout(() => {
+          if (q < totalQ) {
+            document.getElementById(`q${q}`).classList.add('hidden');
+            document.getElementById(`q${q+1}`).classList.remove('hidden');
+            const pct = (q / totalQ) * 100;
+            document.getElementById('progress-bar').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = `質問 ${q+1} / ${totalQ}`;
+          } else {
+            showResult();
+          }
+        }, 300);
+      });
+    });
+
+    function showResult() {
+      document.getElementById('quiz-section').classList.add('hidden');
+      document.getElementById('result-section').classList.remove('hidden');
+
+      // Calculations
+      const age = parseInt(answers[1]);
+      const savings = parseInt(answers[2]);
+      const monthlyExpense = parseInt(answers[3]);
+      const pension = parseInt(answers[4]);
+      const retireAge = parseInt(answers[5]);
+      const housing = answers[6];
+      const childAid = answers[7];
+      const hobbyCost = answers[8];
+
+      // Years until retirement
+      const yearsToRetire = Math.max(0, retireAge - age);
+      // Assumed savings growth 2% per year
+      const savingsAtRetire = savings * Math.pow(1.02, yearsToRetire);
+
+      // Housing cost addition
+      let housingAdd = 0;
+      if (housing === 'rent-low') housingAdd = 6;
+      else if (housing === 'rent-high') housingAdd = 10;
+      else if (housing === 'own-loan') housingAdd = 4;
+
+      // Hobby cost
+      let hobbyAdd = 0;
+      if (hobbyCost === 'low') hobbyAdd = 2;
+      else if (hobbyCost === 'mid') hobbyAdd = 4;
+      else if (hobbyCost === 'high') hobbyAdd = 6;
+
+      // Child aid one-time cost (万円)
+      const childOneTime = answers[7] === 'none' ? 0 : answers[7] === 'small' ? 50 : answers[7] === 'medium' ? 300 : 700;
+
+      // Monthly living at retirement (老後は現役時の80%と仮定)
+      const retireMonthly = monthlyExpense * 0.8 + housingAdd + hobbyAdd;
+      const retireAnnual = retireMonthly * 12;
+
+      // Pension income annual
+      const pensionAnnual = pension * 12;
+
+      // Annual shortfall
+      const annualShortfall = Math.max(0, retireAnnual - pensionAnnual);
+
+      // Life expectancy 90歳想定
+      const retireYears = 90 - retireAge;
+      const totalNeeded = annualShortfall * retireYears + childOneTime;
+
+      // Gap
+      const gap = totalNeeded - savingsAtRetire;
+
+      const isOK = gap <= 0;
+      const gapAbs = Math.abs(Math.round(gap));
+      const monthlyShortfall = isOK ? 0 : Math.round(gap / retireYears / 12);
+
+      let html = '';
+      if (isOK) {
+        html = `
+          <div class="bg-green-50 border-2 border-green-400 rounded-xl p-5 mb-4 text-center">
+            <div class="text-4xl mb-2">✅</div>
+            <h3 class="text-xl font-bold text-green-700">老後資金は充足しています</h3>
+            <p class="text-green-600 mt-2">現在のペースを継続すれば、${retireAge}歳退職・90歳まで安心して生活できます。</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-amber-50 rounded-xl p-4 text-center">
+              <p class="text-sm text-gray-500">老後月の生活費試算</p>
+              <p class="text-2xl font-bold text-amber-700">${retireMonthly}万円</p>
+            </div>
+            <div class="bg-amber-50 rounded-xl p-4 text-center">
+              <p class="text-sm text-gray-500">年金受給（月）</p>
+              <p class="text-2xl font-bold text-amber-700">${pension}万円</p>
+            </div>
+          </div>
+          <div class="bg-blue-50 rounded-xl p-4 mb-4">
+            <p class="text-sm font-semibold text-blue-700 mb-1">余裕資金の活用ヒント</p>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>・NISAやiDeCoで更に資産を増やす</li>
+              <li>・医療費・介護費用のバッファを確保</li>
+              <li>・生前贈与や相続対策を検討</li>
+            </ul>
+          </div>`;
+      } else {
+        html = `
+          <div class="bg-red-50 border-2 border-red-400 rounded-xl p-5 mb-4 text-center">
+            <div class="text-4xl mb-2">⚠️</div>
+            <h3 class="text-xl font-bold text-red-700">老後資金が不足する見込みです</h3>
+            <p class="text-red-600 mt-2">約 <strong class="text-2xl">${gapAbs}万円</strong> の不足が予想されます</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-amber-50 rounded-xl p-4 text-center">
+              <p class="text-sm text-gray-500">老後月の生活費試算</p>
+              <p class="text-2xl font-bold text-amber-700">${retireMonthly.toFixed(1)}万円</p>
+            </div>
+            <div class="bg-amber-50 rounded-xl p-4 text-center">
+              <p class="text-sm text-gray-500">年金との月間差額</p>
+              <p class="text-2xl font-bold text-red-600">-${(retireMonthly - pension).toFixed(1)}万円</p>
+            </div>
+          </div>
+          <div class="bg-amber-50 rounded-xl p-4 mb-4">
+            <p class="text-sm font-semibold text-amber-700 mb-2">今から毎月 <span class="text-xl text-red-600">${monthlyShortfall}万円</span> の追加積立が必要</p>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>✅ NISA・iDeCoの最大活用を検討</li>
+              <li>✅ 退職年齢を65→70歳に延長することで大幅改善</li>
+              <li>✅ 老後の生活費の見直し（固定費削減）</li>
+              <li>✅ 副業・資産運用で収入を増やす</li>
+            </ul>
+          </div>`;
+      }
+
+      html += `
+        <div class="bg-gray-50 rounded-xl p-4 text-sm text-gray-600">
+          <p class="font-semibold mb-1">計算の前提条件</p>
+          <ul class="space-y-1">
+            <li>・平均寿命：90歳（厚生労働省統計参考）</li>
+            <li>・貯蓄の運用利回り：年2%（保守的試算）</li>
+            <li>・老後生活費：現役時の約80%と仮定</li>
+            <li>・インフレ率は考慮外（保守的試算）</li>
+          </ul>
+        </div>`;
+
+      document.getElementById('result-content').innerHTML = html;
+    }
+  </script>
+</body>
+</html>
